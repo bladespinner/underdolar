@@ -1,8 +1,8 @@
 'use strict';
 
 var _$ = function() {
-	var InfinteCollectionEnumerationException = 'Can not enumerate infinite collection',
-		InvalidCollectionException = 'Obj is not an valid Collection, and can not be converted to one',
+	var InfinteEnumerableEnumerationException = 'Can not enumerate infinite Enumerable',
+		InvalidEnumerableException = 'Obj is not an valid Enumerable, and can not be converted to one',
 		EmptyIteratorException = 'Attempted to get next element of empty or completely enumerated iterator';
 		
 	if (!Array.isArray) {
@@ -26,9 +26,9 @@ var _$ = function() {
 	}
 	
 	/**
-	 * Check if object looks like an collection
+	 * Check if object looks like an Enumerable
 	 */ //INTERNAL
-	function isCollectionlike(obj) {
+	function isEnumerablelike(obj) {
 		return obj.hasOwnProperty('getIterator');
 	}
 	
@@ -120,29 +120,29 @@ var _$ = function() {
 	}
 	
 	/**
-	 * Create new collection from iterator
+	 * Create new Enumerable from iterator
 	 */
-	function Collection(iterator) {
+	function Enumerable(iterator) {
 		this.getIterator = function() {
 			return iterator.newInstance();
 		}
 	}
 	
-	var cProto = Collection.prototype;
+	var cProto = Enumerable.prototype;
 		
 	cProto.yield = function(callback, finite) {
 		var origIter = this.getIterator(),
 			iter = new LambdaIterator(origIter, callback, finite);
 			
-		return new Collection(iter);
+		return new Enumerable(iter);
 	}
 	
 	cProto.each = function(callback) {
 		var iter = this.getIterator(),
 			idx = 0;
 			
-		if (!this.isFiniteCollection()) {
-			throw InfinteCollectionEnumerationException;
+		if (!this.isFiniteEnumerable()) {
+			throw InfinteEnumerableEnumerationException;
 		}
 			
 		while (iter.hasMore()) {
@@ -211,7 +211,7 @@ var _$ = function() {
 		return memo;
 	};
 	
-	cProto.isFiniteCollection = function() {
+	cProto.isFiniteEnumerable = function() {
 		return this.getIterator().isFinite();
 	}
 	
@@ -245,7 +245,7 @@ var _$ = function() {
 	
 	cProto.reverse = function() {
 		var iter = new ArrayIterator(this.toArrayReverse);
-		return new Collection(iter);
+		return new Enumerable(iter);
 	}
 	
 	cProto.reduceRight = cProto.foldr = function(callback, memo) {
@@ -357,7 +357,7 @@ var _$ = function() {
 		selector = selector || this.identity;
 		var sorted = Array.prototype.sort.apply(null , this.map(selector).toArray());
 		var iter = new ArrayIterator(sorted);
-		return new Collection(iter);
+		return new Enumerable(iter);
 	}
 	
 	cProto.groupBy = function(groupSelector) {
@@ -394,22 +394,22 @@ var _$ = function() {
 	//shuffle
 	//sample
 
-	function asCollection(obj) {
-		if (isCollectionlike(obj)) {
-			return new Collection(obj.getIterator());
+	function asEnumerable(obj) {
+		if (isEnumerablelike(obj)) {
+			return new Enumerable(obj.getIterator());
 		}
 		
 		if (isArraylike(obj)) {
 			var arr = _$.util.asArray(obj);
 			var arrIter = new ArrayIterator(arr);
-			return new Collection(arrIter);
+			return new Enumerable(arrIter);
 		}
 		
-		throw InvalidCollectionException;
+		throw InvalidEnumerableException;
 	}
 		
 	return function(inArr) {
-		return asCollection(inArr);
+		return asEnumerable(inArr);
 	}
 }();
 

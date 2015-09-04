@@ -78,7 +78,7 @@ function test() {
 		};
 	}
 	
-	var infiniteCollection = {
+	var infiniteEnumerable = {
 		getIterator: function() {
 			var getIter = function() {
 				return {
@@ -105,35 +105,35 @@ function test() {
 	});
 	
 	testSet('_$#toArray returns value correctly as array', function() {
-		testSet('..returns empty array on empty collection', function() {
+		testSet('..returns empty array on empty Enumerable', function() {
 			expect(_$([]).toArray()).toBe([]);
 		});
 		
-		testSet('..throws an exception on infinite collection', function() {
+		testSet('..throws an exception on infinite Enumerable', function() {
 			var exception;
 			try {
-				_$(infiniteCollection).toArray()
+				_$(infiniteEnumerable).toArray()
 			} catch(e) {
 				exception = e;
 			}
-			expect(exception).toBe('Can not enumerate infinite collection')
+			expect(exception).toBe('Can not enumerate infinite Enumerable')
 		});
 
-		testSet('..returns elements in collection initialized with array as array', function() {
+		testSet('..returns elements in Enumerable initialized with array as array', function() {
 			expect(_$([1,2,3]).toArray()).toBe([1,2,3]);
 		});
 		
-		testSet('..returns elements in collection initialized with argument list as array', function() {
+		testSet('..returns elements in Enumerable initialized with argument list as array', function() {
 			(function(){
 				expect(_$(arguments).toArray()).toBe([1,2,3]);
 			})(1,2,3);
 		});
 		
-		testSet('..returns elements in collection initialized with arraylike object as array', function() {
+		testSet('..returns elements in Enumerable initialized with arraylike object as array', function() {
 			expect(_$({'0': 1, '1': 2, '2': 3, length: 3}).toArray()).toBe([1,2,3]);
 		});
 		
-		testSet('..returns elements in collection initialized with sparse array as array', function() {
+		testSet('..returns elements in Enumerable initialized with sparse array as array', function() {
 			expect(_$([1,,,2,3,]).toArray()).toBe([1,2,3]);
 		});
 	});
@@ -154,8 +154,8 @@ function test() {
 			}).toArray()).toBe([0,1,2,3,4]);
 		});
 		
-		testSet('..callbacks with infinite collection', function() {
-			var iter = _$(infiniteCollection).yield(function(value, yieldCallback, idx) {
+		testSet('..callbacks with infinite Enumerable', function() {
+			var iter = _$(infiniteEnumerable).yield(function(value, yieldCallback, idx) {
 				yieldCallback(value);
 			}).getIterator();
 			
@@ -189,17 +189,17 @@ function test() {
 			expect(a).toBe([1,2,3,4,5]);
 		});
 		
-		testSet('..throws an exception on infinite collection', function() {
+		testSet('..throws an exception on infinite Enumerable', function() {
 			var a = [],
 				exception;
 			try {
-				_$(infiniteCollection).each(function(value) {
+				_$(infiniteEnumerable).each(function(value) {
 					a.push(value);	
 				});
 			} catch(e) {
 				exception = e;
 			}
-			expect(exception).toBe('Can not enumerate infinite collection');
+			expect(exception).toBe('Can not enumerate infinite Enumerable');
 		});
 		
 		testSet('..callbacks with correct indexes', function() {
@@ -212,14 +212,14 @@ function test() {
 	});
 	
 	testSet('_$(arr)#identity', function() {
-		testSet('..does not change the collection', function() {
+		testSet('..does not change the Enumerable', function() {
 			expect(_$([1,2,3,4,5]).identity().toArray()).toBe([1,2,3,4,5]);
 			expect(_$([]).identity().toArray()).toBe([]);
 		});
 	});
 	
 	testSet('_$(arr)#tap', function() {
-		testSet('..does not change the collection', function() {
+		testSet('..does not change the Enumerable', function() {
 			expect(_$([1,2,3,4,5]).tap(function(){}).toArray()).toBe([1,2,3,4,5]);
 			expect(_$([]).tap(function(){}).toArray()).toBe([]);
 		});
@@ -324,17 +324,17 @@ function test() {
 		});
 	});
 	
-	testSet('_$#isFiniteCollection', function() {
-		testSet('..empty array is finite collection', function() {
-			expect(_$([]).isFiniteCollection()).toBe(true);
+	testSet('_$#isFiniteEnumerable', function() {
+		testSet('..empty array is finite Enumerable', function() {
+			expect(_$([]).isFiniteEnumerable()).toBe(true);
 		});
 		
-		testSet('..finite element array is finite collection', function() {
-			expect(_$([1,2,3,4,5]).isFiniteCollection()).toBe(true)
+		testSet('..finite element array is finite Enumerable', function() {
+			expect(_$([1,2,3,4,5]).isFiniteEnumerable()).toBe(true)
 		});
 		
-		testSet('..infinite generator is infinite collection', function() {
-			expect(_$(infiniteCollection).isFiniteCollection()).toBe(false);
+		testSet('..infinite generator is infinite Enumerable', function() {
+			expect(_$(infiniteEnumerable).isFiniteEnumerable()).toBe(false);
 		});
 	});
 }
