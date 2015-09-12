@@ -115,7 +115,7 @@ var _$ = function() {
 		}
 		
 		this.newInstance = function() {
-			return new LambdaIterator(iterator, lambda, isFinite);
+			return new LambdaIterator(iterator.newInstance(), lambda, isFinite);
 		};
 	}
 	
@@ -157,7 +157,7 @@ var _$ = function() {
 	
 	cProto.tap = function(callback) {
 		this.each(callback);
-		return this;
+		return new Enumerable(this.getIterator().newInstance());
 	};
 	
 	cProto.size = cProto.length = function() {
@@ -263,6 +263,33 @@ var _$ = function() {
 			if (predicate(value, idx)) {
 				yieldCallback(value);	
 			};
+		});
+	};
+	
+	cProto.skipWhile = function(predicate) {
+		var take = false;
+		return this.filter(function(value, idx) {
+			if(idx == 0) {
+				take = false;
+			}
+			
+			if(take) {
+				return true;
+			}
+			
+			if(!predicate(value, idx)) {
+				take = true;
+				return true;
+			};
+			
+			return false;
+		});
+	};
+		
+	cProto.skip = function(count) {
+		count = count || 1;
+		return this.skipWhile(function(value, idx){
+			return idx < count;
 		});
 	};
 	
@@ -435,6 +462,25 @@ _$.funct = {
 			
 			return result;
 		};
+	},
+	partial: function(funct) { 
+		var preArgs = _$(arguments);
+		return function() {
+			var args = _$(arguments).toArray(),
+				argPtr = 0;
+			
+			var compiledArgs = preArgs.skip().map(function(value) {
+				if(value === _$) {
+					var result = args[argPtr];
+					argPtr++;
+					return result;
+				}
+				return value;
+			});
+
+			var compiledArgsArr = compiledArgs.toArray()
+			return funct.apply(null, compiledArgsArr);
+		}
 	}
 };
 
