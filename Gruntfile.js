@@ -9,6 +9,11 @@ module.exports = function(grunt) {
             srcLib: '<%= settings.src %>/lib',
             bowerComponents: '<%= settings.app %>/bower_components'
         },
+        clean: {
+            unit: {
+                
+            }
+        },
         copy: {
             libs: {
                 files: [
@@ -29,13 +34,6 @@ module.exports = function(grunt) {
         jasmine: {
             unit: {
                 src: '<%= settings.testBuild %>/**/*.js',
-                options: {
-                    specs: '<%= settings.unit %>/**/*Spec.js',
-                    template: require('grunt-template-jasmine-requirejs'),
-                    templateOptions: {
-                        requireConfigFile: 'src/main.js'
-                    }
-                }
             }
         }
     });
@@ -45,13 +43,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     
     grunt.registerTask('build:unit', [
-        //'copy:libs',
         'copy:unit',
-        'karma-unit'
     ]);
     
     grunt.registerTask('unit', [
         'build:unit',
-        'jasmine:unit'
+        'karma:unit'
     ]);
 };

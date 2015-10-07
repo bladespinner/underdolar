@@ -16,7 +16,14 @@
     "grunt-karma": "^0.12.1",
     "grunt-template-jasmine-requirejs": "^0.2.3",
     "jasmine": "^2.3.2",
+    "jasmine-core": "^2.3.4",
     "karma": "^0.13.9",
-    "karma-coverage": "^0.5.2"
+    "karma-coverage": "^0.5.2",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-phantomjs-shim": "^1.1.1",
+    "karma-requirejs": "^0.2.2",
+    "phantomjs": "^1.9.18",
+    "requirejs": "^2.1.20"
   }
 }

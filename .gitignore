@@ -2,3 +2,5 @@ node_modules*
 bower_components*
 spec/testBuild*
 .grunt*
+npm-debug.log
+spec/coverage*
