@@ -1,5 +1,5 @@
 define(['enumerable/enumerators/countBy', 'test/mock/enumerable'], function (countBy, enumMock) {
-    describe('Enumerable', function () {
+    describe('Count By enumerator', function () {
         var countByMocked,
             EnumerableMock = enumMock.EnumerableMock;
         
