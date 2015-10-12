@@ -19,7 +19,7 @@ define(['enumerable/enumerators/filter', 'test/mock/enumerable'], function (filt
         it('should objects matching condition', function () {
             var result = filterMocked(function (person) {
                 return person.age > 15;
-            });
+            }).value();
             
             expect(result).toEqual([
                 {name: 'Ivan', age: 25},
@@ -31,7 +31,7 @@ define(['enumerable/enumerators/filter', 'test/mock/enumerable'], function (filt
         it('should return empty array if no members match condition', function () {
             var result = filterMocked(function (person, index) {
                 return person.age < 0;
-            });
+            }).value();
             
             expect(result).toEqual([]);
         });

@@ -15,7 +15,11 @@ define([], function () {
                 callback(data[i], yieldCallback, i);
             }
             
-            return result;
+            data = result;
+            return this;
+        }
+        this.value = function () {
+            return data;
         }
     };
     

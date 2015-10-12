@@ -46,7 +46,7 @@ define(['enumerable/enumerators/every', 'test/mock/enumerable'], function (every
             expect(result).toEqual(true);
             
             enumMock.setData([false, undefined, null, true, {}, '55s']);
-            var result = everyMocked();
+            result = everyMocked();
             expect(result).toEqual(false);
             
         });
