@@ -4,3 +4,5 @@ spec/testBuild*
 .grunt*
 npm-debug.log
 spec/coverage*
+typings*
+jsconfig.json
