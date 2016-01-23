@@ -12,7 +12,7 @@ define(['enumerable/main', 'iterator/arrayIterator'],
                 recordEnumerator = new Enumerable(recordIterator);
                 
             
-            fit('should return true if collection includes value', function () {
+            it('should return true if collection includes value', function () {
                 var result = recordEnumerator.includes(records[0])
                 expect(result).toBeTruthy();
             });
