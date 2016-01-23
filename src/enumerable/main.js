@@ -38,7 +38,8 @@
         {name: 'sortBy', synonims: []},
         {name: 'groupBy', synonims: []},
         {name: 'indexBy', synonims: []},
-        {name: 'countBy', synonims: []}        
+        {name: 'countBy', synonims: []},
+        {name: 'enumerate', synonims: []}
     ];
     
     for(var i = 0; i < methods.length; i++) {

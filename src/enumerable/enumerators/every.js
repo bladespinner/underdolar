@@ -12,7 +12,7 @@ define([],
     				result = false;
     				return false;
     			}
-    		}).toArray();
+    		}).enumerate();
     		
     		return result;
     	};

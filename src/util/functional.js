@@ -44,10 +44,15 @@ define([],
     		}
     	}
         
+        function noop() {
+            //do nothing
+        };
+        
         return {
             identity: identity,
             compose: compose,
-            partial: partial
+            partial: partial,
+            noop: noop
         };
     }
 );
