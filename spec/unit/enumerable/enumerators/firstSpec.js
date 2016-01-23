@@ -24,20 +24,11 @@ define(['enumerable/main', 'iterator/arrayIterator'], function (Enumerable, Arra
         });
         
         it('should return undefined if enumerable is empty', function () {
-            var data = [
-                {name: 'Ivan', age: 25},
-                {name: 'Georgi', age: 23},
-                {name: 'Pesho', age: 12},
-                {name: 'Smith', age: 9},
-                {name: 'Donald', age: 34}
-            ],
-            dataIterator = new ArrayIterator(data),
-            dataEnumerable = new Enumerable(dataIterator);
+            var data = [],
+                dataIterator = new ArrayIterator(data),
+                dataEnumerable = new Enumerable(dataIterator);
             
-            
-            var result = dataEnumerable.findWhere({
-                name: 'Darwin' 
-            });
+            var result = dataEnumerable.first();
             
             expect(result).toEqual(undefined);
         });
