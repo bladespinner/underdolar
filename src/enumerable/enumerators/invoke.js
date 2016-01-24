@@ -4,7 +4,7 @@ define(['util/helpers'],
     		var args = Helpers.asArray(arguments).slice(1);
     		
     		return this.map(function(value) {
-    			return value[methodName].call(null, args);
+    			return value[methodName].apply(null, args);
     		});
     	}
         
