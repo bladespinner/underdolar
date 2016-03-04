@@ -1,9 +1,7 @@
 define([], 
     function() {
         function identity(a) {
-    		return function() {
-    			return a;
-    		};
+            return a;
     	}
         
         function compose() {

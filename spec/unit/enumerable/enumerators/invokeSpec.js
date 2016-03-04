@@ -1,5 +1,5 @@
 define(['enumerable/main', 'iterator/arrayIterator'], function (Enumerable, ArrayIterator) {
-    describe('Filter enumerator', function () {
+    describe('Invoke', function () {
         var recordIterator, recordEnumerator;
         
         function getAgeBind(age) {
